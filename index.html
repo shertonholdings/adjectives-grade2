@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Construction with Adjectives</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #logo {
+            width: 150px; /* Adjust the logo size as needed */
+            margin-bottom: 20px;
+        }
+        .sentence {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .adjective {
+            color: blue;
+            font-weight: bold;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .next {
+            margin-top: 30px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: none;
+        }
+        .next:hover {
+            background-color: #388e3c;
+        }
+        .more-lessons {
+            margin-top: 40px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .more-lessons:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+
+<img id="logo" src="https://i.imgur.com/mwpTHJj.png" alt="Logo">
+<h1>Sentence Construction with Adjectives</h1>
+<p>Please choose the correct adjective to complete the sentence.</p>
+
+<div id="exercise-section">
+    <div class="sentence" id="sentence"></div>
+    <select id="adjective-select"></select>
+    <button id="submit">Submit</button>
+    <div class="feedback" id="feedback"></div>
+</div>
+
+<a href="#" class="next" id="next-button">Next Exercise</a>
+
+<!-- More Lessons Button -->
+<a href="https://sites.google.com/view/grades-2/home" class="more-lessons">More Lessons</a>
+
+<script>
+    const sentences = [
+        { base: "The - dog runs.", options: ["big", "small"], correct: "big" },
+        { base: "The - cat sleeps.", options: ["happy", "sad"], correct: "happy" },
+        { base: "The - bird sings.", options: ["loud", "quiet"], correct: "loud" },
+        { base: "The - tree stands tall.", options: ["tall", "short"], correct: "tall" },
+        { base: "The - car drives fast.", options: ["fast", "slow"], correct: "fast" },
+        { base: "The - sun shines bright.", options: ["hot", "cold"], correct: "hot" },
+        { base: "The - fish swims.", options: ["quick", "slow"], correct: "quick" },
+        { base: "The - flower blooms.", options: ["beautiful", "ugly"], correct: "beautiful" },
+        { base: "The - student studies.", options: ["hardworking", "lazy"], correct: "hardworking" },
+        { base: "The - book is interesting.", options: ["funny", "boring"], correct: "funny" },
+        { base: "The - puppy barks.", options: ["cute", "mean"], correct: "cute" },
+        { base: "The - moon is bright.", options: ["bright", "dark"], correct: "bright" },
+        { base: "The - ice cream is cold.", options: ["delicious", "bad"], correct: "delicious" },
+        { base: "The - shoes are new.", options: ["old", "new"], correct: "new" },
+        { base: "The - baby is sleeping.", options: ["loud", "quiet"], correct: "quiet" },
+        { base: "The - cookie is sweet.", options: ["sour", "sweet"], correct: "sweet" },
+        { base: "The - car is red.", options: ["blue", "red"], correct: "red" },
+        { base: "The - monkey climbs.", options: ["lazy", "playful"], correct: "playful" },
+        { base: "The - elephant is big.", options: ["big", "tiny"], correct: "big" },
+        { base: "The - rabbit hops.", options: ["slow", "quick"], correct: "quick" },
+        { base: "The - fish is colorful.", options: ["colorful", "dull"], correct: "colorful" },
+    ];
+
+    let currentExercise = 0;
+
+    const sentenceElement = document.getElementById('sentence');
+    const adjectiveSelect = document.getElementById('adjective-select');
+    const feedbackElement = document.getElementById('feedback');
+    const nextButton = document.getElementById('next-button');
+
+    function loadExercise() {
+        const exercise = sentences[currentExercise];
+        sentenceElement.textContent = exercise.base;
+        
+        // Populate the dropdown with options
+        adjectiveSelect.innerHTML = '';
+        exercise.options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option;
+            optionElement.textContent = option;
+            adjectiveSelect.appendChild(optionElement);
+        });
+
+        feedbackElement.textContent = '';
+    }
+
+    document.getElementById('submit').addEventListener('click', () => {
+        const selectedAdjective = adjectiveSelect.value;
+        const correctAnswer = sentences[currentExercise].correct;
+
+        if (selectedAdjective === correctAnswer) {
+            feedbackElement.textContent = "Nice choice!";
+        } else {
+            feedbackElement.textContent = `Incorrect! The correct adjective is "${correctAnswer}".`;
+        }
+
+        nextButton.style.display = 'block';
+    });
+
+    nextButton.addEventListener('click', () => {
+        currentExercise++;
+        if (currentExercise < sentences.length) {
+            loadExercise();
+            nextButton.style.display = 'none';
+        } else {
+            sentenceElement.textContent = "Great job! You've completed the exercises.";
+            adjectiveSelect.style.display = 'none';
+            nextButton.style.display = 'none';
+        }
+    });
+
+    loadExercise();
+</script>
+
+</body>
+</html>
+
+
